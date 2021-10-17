@@ -42,4 +42,16 @@ Omitted patterns for simplicity:
 
 This is not a complete Hexagonal Architecture, is a very simplified version of them.
 
+### Testing
 
+I'm not implemented the all possible tests, the implementation of tests only it has been given at one entity of the domain and at one Domain Service.
+The tested classes have been:
+- RobotEntity
+- MoveRobotService
+
+These two classes are the ones with the most complexity at this project.
+To execute the testing you must followed the above steps to install gradle.
+To execute (being at the root of project):
+- ./gradlew check
+
+If any test fails these program exists with exit code different to 0 (and you can integrate CI/CD on other sites).

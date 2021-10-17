@@ -10,7 +10,6 @@ class Direction(
 
     init {
         val v = x.value + y.value
-        assert(v != 1 && v != -1)
     }
 
     fun rotateClockwise90Degrees() : Direction {

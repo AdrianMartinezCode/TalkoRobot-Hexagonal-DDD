@@ -6,7 +6,6 @@ package libs.utils
 class Either<L, R>(private val error: L?, private val result: R?) {
 
     init {
-        assert(error == null && result == null || error != null && result != null)
     }
 
     companion object {
@@ -41,6 +40,13 @@ class Either<L, R>(private val error: L?, private val result: R?) {
         return fold(
             { err -> Either.Left(err)},
             { r -> Either.Right(map(r)) }
+        )
+    }
+
+    fun errorToNullable() : L? {
+        return fold(
+            { exc -> exc },
+            { null }
         )
     }
 }

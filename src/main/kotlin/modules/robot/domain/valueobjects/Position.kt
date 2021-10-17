@@ -19,4 +19,10 @@ class Position(
     override fun toString(): String {
         return "X: $x; Y: $y"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (other == null || other !is Position) return false;
+        return other.x == x && other.y == y
+    }
+
 }
