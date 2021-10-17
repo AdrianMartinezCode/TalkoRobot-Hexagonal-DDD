@@ -19,9 +19,8 @@ class CreateEnvironmentService(
         )
         val entity = EnvironmentEntity.create(command.limitX, command.limitY)
 
-        return repository.saveEnvironment(entity).fold(
-            { err -> throw err },
-            { Either.Right(entity.id) }
-        )
+        repository.saveEnvironment(entity)
+
+        return Either.Right(entity.id)
     }
 }

@@ -1,6 +1,6 @@
 package libs.ddd.domain.valueobjects
 
-class ID(private val value: String) {
+class ID(val value: String) {
 
     companion object {
         /**

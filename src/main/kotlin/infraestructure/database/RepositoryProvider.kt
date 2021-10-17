@@ -1,14 +1,23 @@
 package infraestructure.database
 
-import modules.environment.database.EnvironmentRepository
-import modules.robot.database.RobotRepository
+import modules.environment.database.IEnvironmentRepository
+import modules.robot.database.IRobotRepository
 
 class RepositoryProvider {
 
-    fun getRobotRepository() : RobotRepository {
+    private val robotRepository : IRobotRepository
+    private val environmentRepository : IEnvironmentRepository
 
+    init {
+        robotRepository = StorageRobots()
+        environmentRepository = StorageEnvironment()
     }
-    fun getEnvironmentRepository(): EnvironmentRepository {
 
+    
+    fun getRobotRepository() : IRobotRepository {
+        return robotRepository
+    }
+    fun getEnvironmentRepository(): IEnvironmentRepository {
+        return environmentRepository
     }
 }

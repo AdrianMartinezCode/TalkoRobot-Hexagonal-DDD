@@ -6,8 +6,12 @@ class Option<V>(private val value: V?) {
         fun <V>Some(value: V) : Option<V> {
             return Option(value)
         }
-        fun None() : Option<Nothing> {
+        fun <V>None() : Option<V> {
             return Option(null)
+        }
+        fun <V>FromNullable(value: V?) : Option<V> {
+            if (value != null) return Some(value)
+            return None()
         }
     }
 

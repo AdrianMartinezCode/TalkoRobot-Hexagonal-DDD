@@ -5,8 +5,8 @@ import libs.utils.Either
 import libs.utils.Option
 import modules.robot.domain.entities.RobotEntity
 
-interface RobotRepository {
+interface IRobotRepository {
     fun getRobot(id: ID) : Option<RobotEntity>
-    fun saveRobot(robotEntity: RobotEntity) : Unit
+    fun saveRobot(robotEntity: RobotEntity)
     fun getAllRobots() : List<RobotEntity>
 }

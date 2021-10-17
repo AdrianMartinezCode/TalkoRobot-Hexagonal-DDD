@@ -4,7 +4,6 @@ import infraestructure.database.RepositoryProvider
 import libs.ddd.commands.CommandService
 import libs.ddd.domain.valueobjects.ID
 import libs.utils.Either
-import modules.robot.database.RobotRepository
 import modules.robot.domain.entities.RobotEntity
 import modules.robot.domain.valueobjects.Direction
 import modules.robot.domain.valueobjects.Position
