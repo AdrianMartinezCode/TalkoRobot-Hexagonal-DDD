@@ -25,6 +25,12 @@ class Direction(
             x
         )
     }
+    fun getOrientation() : Char {
+        if (x.value == -1 && y.value == 0) return 'W'
+        if (x.value == 1 && y.value == 0) return 'E'
+        if (x.value == 0 && y.value == -1) return 'S'
+        return 'N'
+    }
 
     companion object {
         fun getDirection(
