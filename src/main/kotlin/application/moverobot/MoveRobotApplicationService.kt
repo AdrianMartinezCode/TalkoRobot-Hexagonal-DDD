@@ -53,7 +53,7 @@ class MoveRobotApplicationService (
             }
         }.map {
             it.fold(
-                { exc -> throw ApplicationException(exc) },
+                { exc -> throw exc!! },
                 { r -> r }
             )
         }

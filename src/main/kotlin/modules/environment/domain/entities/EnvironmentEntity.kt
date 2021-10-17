@@ -39,6 +39,8 @@ class EnvironmentEntity(
 //    }
 
     fun isPositionValid(position: Position) : Boolean {
+        println("Input pos: $position")
+        println("Limit positions: " + this.properties.toString())
         return position.x >= 0 && position.x <= super.properties.limitX &&
                 position.y >= 0 && position.y <= super.properties.limitY
     }

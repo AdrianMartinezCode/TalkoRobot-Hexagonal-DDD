@@ -15,4 +15,8 @@ class Position(
     fun isSamePosition(position: Position) : Boolean {
         return position.x == x && position.y == y
     }
+
+    override fun toString(): String {
+        return "X: $x; Y: $y"
+    }
 }

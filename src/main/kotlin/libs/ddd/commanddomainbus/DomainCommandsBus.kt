@@ -16,10 +16,10 @@ import modules.robot.commands.rotaterobot.RotateRobotService
 import kotlin.reflect.KClass
 
 final class DomainCommandsBus (
-    val domainServices : HashMap<String, CommandService<in Command, *>>
+    val domainServices : HashMap<String, CommandService<in Command, Throwable>>
 ) {
 
-    inline fun <reified T : Command, S : CommandService<T, *>>sendCommand(command : T) : Either<out Any?, ID> {
+    inline fun <reified T : Command, S : CommandService<T, *>>sendCommand(command : T) : Either<out Throwable?, ID> {
         return domainServices[T::class.java.name]!!.handle(command)
     }
 
@@ -32,19 +32,19 @@ final class DomainCommandsBus (
                 hashMapOf(
                     Pair(
                         MoveRobotCommand::class.java.name,
-                        MoveRobotService(repositoryProvider) as CommandService<in Command, Any>
+                        MoveRobotService(repositoryProvider) as CommandService<in Command, Throwable>
                     ),
                     Pair(
                         PositionRobotCommand::class.java.name,
-                        PositionRobotService(repositoryProvider) as CommandService<in Command, Any>
+                        PositionRobotService(repositoryProvider) as CommandService<in Command, Throwable>
                     ),
                     Pair(
                         RotateRobotCommand::class.java.name,
-                        RotateRobotService(repositoryProvider) as CommandService<in Command, Any>
+                        RotateRobotService(repositoryProvider) as CommandService<in Command, Throwable>
                     ),
                     Pair(
                         CreateEnvironmentCommand::class.java.name,
-                        CreateEnvironmentService(repositoryProvider) as CommandService<in Command, Any>
+                        CreateEnvironmentService(repositoryProvider) as CommandService<in Command, Throwable>
                     )
                 )
             )

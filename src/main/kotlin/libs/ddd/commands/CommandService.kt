@@ -4,7 +4,7 @@ import infraestructure.database.RepositoryProvider
 import libs.ddd.domain.valueobjects.ID
 import libs.utils.Either
 
-abstract class CommandService<C : Command, E>(
+abstract class CommandService<C : Command, E : Throwable>(
     val repositoryProvider: RepositoryProvider
 ) {
 

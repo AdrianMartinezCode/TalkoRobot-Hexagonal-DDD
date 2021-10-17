@@ -22,6 +22,7 @@ class RobotEntity(
             position: Position,
             robots: List<RobotEntity>
         ) : Boolean {
+            if (robots.isEmpty()) return false
             return robots.map { r ->
                 r.robotIsInThisPosition(position)
             }.reduce { acc, v -> acc || v }

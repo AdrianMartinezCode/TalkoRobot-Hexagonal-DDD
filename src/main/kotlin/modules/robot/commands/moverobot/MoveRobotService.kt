@@ -24,7 +24,7 @@ class MoveRobotService(
                         val allRobots = robotRepository.getAllRobots()
                         if (RobotEntity.positionCollidesWithOtherRobots(newPosition, allRobots))
                             Either.Left(MoveRobotException.RobotsCollideException())
-                        else if (env.isPositionValid(newPosition))
+                        else if (!env.isPositionValid(newPosition))
                             Either.Left(MoveRobotException.RobotOutOfBoundsException())
                         else {
                             val newRobot = robot.moveRobot()
