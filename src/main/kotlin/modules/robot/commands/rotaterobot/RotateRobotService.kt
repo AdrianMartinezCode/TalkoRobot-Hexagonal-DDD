@@ -1,6 +1,6 @@
 package modules.robot.commands.rotaterobot
 
-import infraestructure.database.RepositoryProvider
+import database.RepositoryProvider
 import libs.ddd.commands.CommandService
 import libs.ddd.domain.valueobjects.ID
 import libs.utils.Either

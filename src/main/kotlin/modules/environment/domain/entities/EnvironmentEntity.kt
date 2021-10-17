@@ -1,11 +1,7 @@
 package modules.environment.domain.entities
 
 import libs.ddd.domain.baseclasses.AggregateRoot
-import libs.ddd.domain.baseclasses.Entity
 import libs.ddd.domain.valueobjects.ID
-import libs.utils.Either
-import modules.environment.errors.EnvironmentOutOfBoundsException
-import modules.robot.domain.entities.RobotEntity
 import modules.robot.domain.valueobjects.Position
 
 class EnvironmentEntity(
@@ -33,15 +29,9 @@ class EnvironmentEntity(
         }
     }
 
-//    fun canMoveRobot(robot: RobotEntity) : Boolean {
-//        val pos = robot.getNextMoveRobot()
-//
-//    }
 
     fun isPositionValid(position: Position) : Boolean {
-        println("Input pos: $position")
-        println("Limit positions: " + this.properties.toString())
-        return position.x >= 0 && position.x <= super.properties.limitX &&
-                position.y >= 0 && position.y <= super.properties.limitY
+        return position.x >= LIMIT_BOTTOM_X && position.x <= super.properties.limitX &&
+                position.y >= LIMIT_BOTTOM_Y && position.y <= super.properties.limitY
     }
 }

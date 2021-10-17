@@ -1,6 +1,6 @@
 package libs.ddd.commands
 
-import infraestructure.database.RepositoryProvider
+import database.RepositoryProvider
 import libs.ddd.domain.valueobjects.ID
 import libs.utils.Either
 

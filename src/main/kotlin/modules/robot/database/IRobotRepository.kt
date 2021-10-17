@@ -1,7 +1,6 @@
 package modules.robot.database
 
 import libs.ddd.domain.valueobjects.ID
-import libs.utils.Either
 import libs.utils.Option
 import modules.robot.domain.entities.RobotEntity
 

@@ -3,7 +3,7 @@ package di
 import application.defineenvironment.DefineEnvironmentApplicationService
 import application.moverobot.MoveRobotApplicationService
 import application.positionaterobot.PositionateRobotApplicationService
-import infraestructure.database.RepositoryProvider
+import database.RepositoryProvider
 import libs.ddd.commanddomainbus.DomainCommandsBus
 import modules.robot.queries.statusrobot.StatusRobotQueryHandler
 

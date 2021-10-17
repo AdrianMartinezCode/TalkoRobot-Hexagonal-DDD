@@ -1,10 +1,8 @@
 package application.moverobot
 
 import libs.application.ApplicationCommandService
-import libs.application.ApplicationException
 import libs.ddd.commanddomainbus.DomainCommandsBus
 import libs.ddd.domain.valueobjects.ID
-import libs.utils.Either
 import modules.robot.commands.moverobot.MoveRobotCommand
 import modules.robot.commands.moverobot.MoveRobotService
 import modules.robot.commands.rotaterobot.RotateRobotCommand

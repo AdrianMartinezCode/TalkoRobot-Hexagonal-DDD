@@ -1,6 +1,6 @@
 package modules.robot.queries.statusrobot
 
-import infraestructure.database.RepositoryProvider
+import database.RepositoryProvider
 import libs.utils.Either
 
 class StatusRobotQueryHandler(
