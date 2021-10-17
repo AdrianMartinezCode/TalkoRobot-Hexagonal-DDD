@@ -40,7 +40,6 @@ class MoveRobotApplicationService (
                 }
                 MoveRobotApplicationInstructionEnum.M -> {
                     val command = MoveRobotCommand(
-                        request.environmentId,
                         request.robotId
                     )
                     domainCommandsBus.sendCommand<

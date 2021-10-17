@@ -15,6 +15,7 @@ class PositionRobotService(
     override fun handle(command: PositionRobotCommand) : Either<PositionRobotException, ID>{
         val robotRepository = repositoryProvider.getRobotRepository()
         val environmentRepository = repositoryProvider.getEnvironmentRepository()
+
         return environmentRepository.getEnvironment(command.environmentId).fold(
             { Either.Left(PositionRobotException.EnvironmentNotDefinedException()) },
             { environment ->
@@ -33,7 +34,8 @@ class PositionRobotService(
                     else {
                         val robot = RobotEntity.create(
                             Direction.getDirection(command.direction),
-                            position
+                            position,
+                            command.environmentId
                         )
                         robotRepository.saveRobot(robot)
                         Either.Right(robot.id)

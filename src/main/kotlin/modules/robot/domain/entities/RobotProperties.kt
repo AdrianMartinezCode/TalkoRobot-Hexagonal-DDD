@@ -1,5 +1,6 @@
 package modules.robot.domain.entities
 
+import libs.ddd.domain.valueobjects.ID
 import modules.robot.domain.valueobjects.Direction
 import modules.robot.domain.valueobjects.Position
 

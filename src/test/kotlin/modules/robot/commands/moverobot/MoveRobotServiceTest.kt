@@ -30,18 +30,19 @@ internal class MoveRobotServiceTest {
         val repo = repositoryProvider.getRobotRepository()
         val robot1 = RobotEntity.create(
             Direction.getDirection(PositionRobotDirectionEnum.N),
-            Position(0, 0)
+            Position(0, 0),
+            env.id
         )
         val robot2 = RobotEntity.create(
             Direction.getDirection(PositionRobotDirectionEnum.S),
-            Position(0, 1)
+            Position(0, 1),
+            env.id
         )
         repo.saveRobot(robot1)
         repo.saveRobot(robot2)
 
         val exc = moveRobotService.handle(
             MoveRobotCommand(
-                env.id,
                 robot1.id
             )
         ).errorToNullable()
@@ -63,13 +64,13 @@ internal class MoveRobotServiceTest {
         val repo = repositoryProvider.getRobotRepository()
         val robot1 = RobotEntity.create(
             Direction.getDirection(PositionRobotDirectionEnum.N),
-            Position(5, 5)
+            Position(5, 5),
+            env.id
         )
         repo.saveRobot(robot1)
 
         val exc = moveRobotService.handle(
             MoveRobotCommand(
-                env.id,
                 robot1.id
             )
         ).errorToNullable()

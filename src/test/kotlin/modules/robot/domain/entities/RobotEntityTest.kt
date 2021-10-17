@@ -24,7 +24,8 @@ internal class RobotEntityTest {
     fun getNextMoveRobot() {
         val robotNorth = RobotEntity.create(
             Direction.getDirection(PositionRobotDirectionEnum.N),
-            Position(0, 0)
+            Position(0, 0),
+            ID.generate()
         )
         val newPositionNorth = robotNorth.getNextMoveRobot()
         val supposedNewPositionNorth = Position(0, 1)
@@ -32,7 +33,8 @@ internal class RobotEntityTest {
 
         val robotWest = RobotEntity.create(
             Direction.getDirection(PositionRobotDirectionEnum.W),
-            Position(1, 0)
+            Position(1, 0),
+            ID.generate()
         )
         val newPositionWest = robotWest.getNextMoveRobot()
         val supposedNewPositionWest = Position(0, 0)
@@ -40,7 +42,8 @@ internal class RobotEntityTest {
 
         val robotEast = RobotEntity.create(
             Direction.getDirection(PositionRobotDirectionEnum.E),
-            Position(1, 0)
+            Position(1, 0),
+            ID.generate()
         )
         val newPositionEast = robotEast.getNextMoveRobot()
         val supposedNewPositionEast = Position(2, 0)
@@ -48,7 +51,8 @@ internal class RobotEntityTest {
 
         val robotSouth = RobotEntity.create(
             Direction.getDirection(PositionRobotDirectionEnum.S),
-            Position(1, 1)
+            Position(1, 1),
+            ID.generate()
         )
         val newPositionSouth = robotSouth.getNextMoveRobot()
         val supposedNewPositionSouth = Position(1, 0)
@@ -60,7 +64,8 @@ internal class RobotEntityTest {
         val position = Position(0, 0)
         val robot = RobotEntity.create(
             Direction.getDirection(PositionRobotDirectionEnum.N),
-            Position(0, 0)
+            Position(0, 0),
+            ID.generate()
         )
         assertEquals(true, robot.robotIsInThisPosition(position))
     }
@@ -69,7 +74,8 @@ internal class RobotEntityTest {
     fun moveRobot() {
         val robotNorth = RobotEntity.create(
             Direction.getDirection(PositionRobotDirectionEnum.N),
-            Position(0, 0)
+            Position(0, 0),
+            ID.generate()
         )
         val robotNorthMoved = robotNorth.moveRobot()
         val supposedNewPositionNorth = Position(0, 1)
@@ -77,7 +83,8 @@ internal class RobotEntityTest {
 
         val robotWest = RobotEntity.create(
             Direction.getDirection(PositionRobotDirectionEnum.W),
-            Position(1, 0)
+            Position(1, 0),
+            ID.generate()
         )
         val robotWestMoved = robotWest.moveRobot()
         val supposedNewPositionWest = Position(0, 0)
@@ -85,7 +92,8 @@ internal class RobotEntityTest {
 
         val robotEast = RobotEntity.create(
             Direction.getDirection(PositionRobotDirectionEnum.E),
-            Position(1, 0)
+            Position(1, 0),
+            ID.generate()
         )
         val robotEastMoved = robotEast.moveRobot()
         val supposedNewPositionEast = Position(2, 0)
@@ -93,7 +101,8 @@ internal class RobotEntityTest {
 
         val robotSouth = RobotEntity.create(
             Direction.getDirection(PositionRobotDirectionEnum.S),
-            Position(1, 1)
+            Position(1, 1),
+            ID.generate()
         )
         val robotSouthMoved = robotSouth.moveRobot()
         val supposedNewPositionSouth = Position(1, 0)

@@ -7,14 +7,16 @@ import modules.robot.domain.valueobjects.Position
 
 class RobotEntity(
     id: ID,
-    properties: RobotProperties
+    properties: RobotProperties,
+    val environmentID: ID
 ) : AggregateRoot<RobotProperties>(id, properties){
 
     companion object {
-        fun create(direction: Direction, position: Position) : RobotEntity {
+        fun create(direction: Direction, position: Position, environmentId: ID) : RobotEntity {
             return RobotEntity(
                 ID.generate(),
-                RobotProperties(direction, position)
+                RobotProperties(direction, position),
+                environmentId
             )
         }
 
@@ -43,7 +45,8 @@ class RobotEntity(
             RobotProperties(
                 properties.direction,
                 properties.position.getPositionByDirection(properties.direction)
-            )
+            ),
+            environmentID
         )
     }
 
@@ -53,7 +56,8 @@ class RobotEntity(
             RobotProperties(
                 properties.direction.rotateNegative90Degrees(),
                 properties.position
-            )
+            ),
+            environmentID
         )
     }
 
@@ -63,7 +67,8 @@ class RobotEntity(
             RobotProperties(
                 properties.direction.rotateClockwise90Degrees(),
                 properties.position
-            )
+            ),
+            environmentID
         )
     }
 

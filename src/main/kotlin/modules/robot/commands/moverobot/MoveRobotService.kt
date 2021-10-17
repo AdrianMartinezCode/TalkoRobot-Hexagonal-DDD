@@ -14,12 +14,12 @@ class MoveRobotService(
         val robotRepository = repositoryProvider.getRobotRepository()
         val environmentRepository = repositoryProvider.getEnvironmentRepository()
 
-        return environmentRepository.getEnvironment(command.environmentId).fold(
-            { Either.Left(MoveRobotException.EnvironmentNotDefinedException())},
-            { env ->
-                robotRepository.getRobot(command.robotId).fold(
-                    { Either.Left(MoveRobotException.RobotNotFoundException())},
-                    { robot ->
+        return robotRepository.getRobot(command.robotId).fold(
+            { Either.Left(MoveRobotException.RobotNotFoundException())},
+            { robot ->
+                environmentRepository.getEnvironment(robot.environmentID).fold(
+                    { Either.Left(MoveRobotException.EnvironmentNotDefinedException())},
+                    { env ->
                         val newPosition = robot.getNextMoveRobot()
                         val allRobots = robotRepository.getAllRobots()
                         if (RobotEntity.positionCollidesWithOtherRobots(newPosition, allRobots))
