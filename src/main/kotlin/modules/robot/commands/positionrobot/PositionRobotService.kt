@@ -2,31 +2,49 @@ package modules.robot.commands.positionrobot
 
 import infraestructure.database.RepositoryProvider
 import libs.ddd.commands.CommandService
-import libs.exceptions.ElementNotFoundException
+import libs.ddd.domain.valueobjects.ID
 import libs.utils.Either
 import modules.robot.database.RobotRepository
 import modules.robot.domain.entities.RobotEntity
-import modules.robot.errors.InitialPositionOutOfBoundsException
+import modules.robot.domain.valueobjects.Direction
+import modules.robot.domain.valueobjects.Position
 
 class PositionRobotService(
     repositoryProvider: RepositoryProvider
-): CommandService(repositoryProvider) {
+): CommandService<PositionRobotCommand, PositionRobotException>(repositoryProvider) {
 
-    fun handle(command: PositionRobotCommand) : Either<InitialPositionOutOfBoundsException, Nothing>{
+    override fun handle(command: PositionRobotCommand) : Either<PositionRobotException, ID>{
         val robotRepository = repositoryProvider.getRobotRepository()
         val environmentRepository = repositoryProvider.getEnvironmentRepository()
-        environmentRepository.getEnvironment(command.environmentId).fold(
-            { throw ElementNotFoundException() },
+        return environmentRepository.getEnvironment(command.environmentId).fold(
+            { Either.Left(PositionRobotException.EnvironmentNotDefinedException()) },
             { environment ->
-                robotRepository.getRobot(command.robotContext.robotId).fold(
-                    { throw ElementNotFoundException() },
-                    { robot ->
-                        RobotEntity.
-                        environment.isPositionValid()
+                val position = Position(command.posX, command.posY)
+
+                if (!environment.isPositionValid(position))
+                    Either.Left(
+                        PositionRobotException.InitialPositionOutOfBoundsException()
+                    )
+                else {
+                    val allRobots = robotRepository.getAllRobots()
+                    if (RobotEntity.positionCollidesWithOtherRobots(position, allRobots))
+                        Either.Left(
+                            PositionRobotException.RobotsCollideException()
+                        )
+                    else {
+                        val robot = RobotEntity.create(
+                            Direction.getDirection(command.direction),
+                            position
+                        )
+                        robotRepository.saveRobot(robot)
+                        Either.Right(robot.id)
                     }
-                )
+                }
+
             }
         )
     }
+
+
 
 }

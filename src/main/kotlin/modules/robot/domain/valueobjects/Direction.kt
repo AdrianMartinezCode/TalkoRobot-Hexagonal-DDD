@@ -1,6 +1,7 @@
 package modules.robot.domain.valueobjects
 
 import libs.ddd.domain.valueobjects.DirectionValue
+import modules.robot.commands.positionrobot.PositionRobotDirectionEnum
 
 class Direction(
     val x: DirectionValue,
@@ -26,6 +27,17 @@ class Direction(
     }
 
     companion object {
+        fun getDirection(
+            direction: PositionRobotDirectionEnum
+        ) : Direction {
+            return when(direction) {
+                PositionRobotDirectionEnum.N -> North()
+                PositionRobotDirectionEnum.E -> East()
+                PositionRobotDirectionEnum.S -> South()
+                PositionRobotDirectionEnum.W -> West()
+            }
+        }
+
         fun North() : Direction {
             return Direction(
                 DirectionValue.Neutral(),

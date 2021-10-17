@@ -11,4 +11,8 @@ class Position(
             y + direction.y.value
         )
     }
+
+    fun isSamePosition(position: Position) : Boolean {
+        return position.x == x && position.y == y
+    }
 }

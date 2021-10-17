@@ -25,4 +25,22 @@ class Either<L, R>(private val error: L?, private val result: R?) {
         if (this.error != null) return onLeft(this.error)
         return onRight(this.result!!)
     }
+
+    fun <NR>flatMap(
+        map: (result: R) -> Either<L, NR>
+    ) : Either<L, NR> {
+        return fold(
+            { err -> Either.Left(err)},
+            { r -> map(r) }
+        )
+    }
+
+    fun <NR>map(
+        map: (result: R) -> NR
+    ) : Either<L, NR> {
+        return fold(
+            { err -> Either.Left(err)},
+            { r -> Either.Right(map(r)) }
+        )
+    }
 }

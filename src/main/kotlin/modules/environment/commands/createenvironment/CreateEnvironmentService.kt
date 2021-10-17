@@ -1,14 +1,27 @@
 package modules.environment.commands.createenvironment
 
+import infraestructure.database.RepositoryProvider
+import libs.ddd.commands.CommandService
+import libs.ddd.domain.valueobjects.ID
 import libs.utils.Either
 import modules.environment.domain.entities.EnvironmentEntity
 import modules.environment.errors.EnvironmentOutOfBoundsException
 
-class CreateEnvironmentService {
-    fun createEnvironment(limitX: Int, limitY: Int): Either<EnvironmentOutOfBoundsException, EnvironmentEntity> {
-        if (!EnvironmentEntity.isValidUpperCoordinates(limitX, limitY)) return Either.Left(
+class CreateEnvironmentService(
+    repositoryProvider: RepositoryProvider
+) : CommandService<CreateEnvironmentCommand, EnvironmentOutOfBoundsException>(repositoryProvider) {
+
+    override fun handle(command: CreateEnvironmentCommand): Either<EnvironmentOutOfBoundsException, ID> {
+        val repository = repositoryProvider.getEnvironmentRepository()
+
+        if (!EnvironmentEntity.isValidUpperCoordinates(command.limitX, command.limitY)) return Either.Left(
             EnvironmentOutOfBoundsException()
         )
-        return Either.Right(EnvironmentEntity.create(limitX, limitY))
+        val entity = EnvironmentEntity.create(command.limitX, command.limitY)
+
+        return repository.saveEnvironment(entity).fold(
+            { err -> throw err },
+            { Either.Right(entity.id) }
+        )
     }
 }

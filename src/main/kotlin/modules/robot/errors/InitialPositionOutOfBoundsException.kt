@@ -1,4 +1,4 @@
 package modules.robot.errors
 
-class InitialPositionOutOfBoundsException {
+open class InitialPositionOutOfBoundsException {
 }

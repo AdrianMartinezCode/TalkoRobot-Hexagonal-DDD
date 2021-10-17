@@ -1,4 +1,4 @@
 package modules.environment.errors
 
-class EnvironmentOutOfBoundsException {
+class EnvironmentOutOfBoundsException : Throwable() {
 }
