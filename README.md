@@ -20,7 +20,7 @@ Compile the project:
 - ./gradlew build
 
 Run the project:
-- java -jar build/libs/TalkoRobot-1.0-SNAPSHOT.jar
+- java -jar build/com.adrianmartinezcode.talkorobot.libs/TalkoRobot-1.0-SNAPSHOT.jar
   (the specified path is the compiled jar)
 
 And you can write the inputs of the program.

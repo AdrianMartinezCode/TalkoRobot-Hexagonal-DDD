@@ -1,3 +1,1 @@
-
-rootProject.name = "TalkoRobot"
-
+rootProject.name = "demo"

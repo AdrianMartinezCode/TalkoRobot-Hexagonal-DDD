@@ -1,42 +1,43 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.10"
-    application
-    java
+	id("org.springframework.boot") version "2.4.12"
+	id("io.spring.dependency-management") version "1.0.11.RELEASE"
+	kotlin("jvm") version "1.4.32"
+	kotlin("plugin.spring") version "1.4.32"
+	val kotlinVersion = "1.3.72"
 }
 
-group = "me.adrian"
-version = "1.0-SNAPSHOT"
+group = "com.adrianmartinezcode"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_11
+val arrowVersion by extra { "0.10.5" }
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-    implementation("org.junit.jupiter:junit-jupiter:5.7.0")
-    testImplementation(kotlin("test"))
+	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	runtimeOnly("com.h2database:h2")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation("io.arrow-kt:arrow-core:$arrowVersion")
+	implementation("io.arrow-kt:arrow-fx:$arrowVersion")
+	implementation("io.arrow-kt:arrow-optics:$arrowVersion")
+	implementation("io.arrow-kt:arrow-syntax:$arrowVersion")
 }
 
-tasks.test {
-    useJUnit()
+tasks.withType<KotlinCompile> {
+	kotlinOptions {
+		freeCompilerArgs = listOf("-Xjsr305=strict")
+		jvmTarget = "11"
+	}
 }
 
-tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
-tasks.jar {
-    manifest {
-        attributes["Main-Class"] = "MainKt"
-    }
-    configurations["compileClasspath"].forEach { file: File ->
-        from(zipTree(file.absoluteFile))
-    }
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-}
-
-application {
-    mainClassName = "MainKt"
-    mainClass.set("MainKt")
+tasks.withType<Test> {
+	useJUnitPlatform()
 }
