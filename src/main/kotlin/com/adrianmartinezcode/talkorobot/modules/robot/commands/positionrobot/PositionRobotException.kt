@@ -5,4 +5,5 @@ sealed class PositionRobotException : Throwable() {
     class RobotsCollideException : PositionRobotException()
     class InitialPositionOutOfBoundsException : PositionRobotException()
     class EnvironmentNotDefinedException : PositionRobotException()
+    class IncorrectOrientationApplicationException : PositionRobotException()
 }

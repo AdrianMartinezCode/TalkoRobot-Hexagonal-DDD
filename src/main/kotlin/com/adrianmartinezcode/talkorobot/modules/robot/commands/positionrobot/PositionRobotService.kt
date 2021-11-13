@@ -1,9 +1,9 @@
 package com.adrianmartinezcode.talkorobot.modules.robot.commands.positionrobot
 
+import arrow.core.Either
 import com.adrianmartinezcode.talkorobot.infraestructure.database.RepositoryProvider
 import com.adrianmartinezcode.talkorobot.libs.ddd.commands.CommandService
 import com.adrianmartinezcode.talkorobot.libs.ddd.domain.valueobjects.ID
-import com.adrianmartinezcode.talkorobot.libs.utils.Either
 import com.adrianmartinezcode.talkorobot.modules.robot.domain.entities.RobotEntity
 import com.adrianmartinezcode.talkorobot.modules.robot.domain.valueobjects.Direction
 import com.adrianmartinezcode.talkorobot.modules.robot.domain.valueobjects.Position
@@ -12,7 +12,7 @@ class PositionRobotService(
     repositoryProvider: RepositoryProvider
 ): CommandService<PositionRobotCommand, PositionRobotException>(repositoryProvider) {
 
-    override fun handle(command: PositionRobotCommand) : Either<PositionRobotException, ID>{
+    override fun handle(command: PositionRobotCommand) : Either<PositionRobotException, ID> {
         val robotRepository = repositoryProvider.getRobotRepository()
         val environmentRepository = repositoryProvider.getEnvironmentRepository()
 

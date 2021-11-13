@@ -1,9 +1,7 @@
 package com.adrianmartinezcode.talkorobot.modules.environment.commands.createenvironment
 
-import com.adrianmartinezcode.talkorobot.libs.ddd.commands.Command
-
-data class CreateEnvironmentCommand(
+data class CreateEnvironmentRequest(
     val limitX: Int,
     val limitY: Int
-) : Command() {
+) {
 }

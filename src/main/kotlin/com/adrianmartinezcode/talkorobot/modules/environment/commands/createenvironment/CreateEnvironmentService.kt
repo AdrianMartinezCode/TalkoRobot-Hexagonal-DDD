@@ -5,17 +5,16 @@ import com.adrianmartinezcode.talkorobot.libs.ddd.commands.CommandService
 import com.adrianmartinezcode.talkorobot.libs.ddd.domain.valueobjects.ID
 import com.adrianmartinezcode.talkorobot.libs.utils.Either
 import com.adrianmartinezcode.talkorobot.modules.environment.domain.entities.EnvironmentEntity
-import com.adrianmartinezcode.talkorobot.modules.environment.errors.EnvironmentOutOfBoundsException
 
 class CreateEnvironmentService(
     repositoryProvider: RepositoryProvider
-) : CommandService<CreateEnvironmentCommand, EnvironmentOutOfBoundsException>(repositoryProvider) {
+) : CommandService<CreateEnvironmentCommand, CreateEnvironmentException>(repositoryProvider) {
 
-    override fun handle(command: CreateEnvironmentCommand): Either<EnvironmentOutOfBoundsException, ID> {
+    override fun handle(command: CreateEnvironmentCommand): Either<CreateEnvironmentException, ID> {
         val repository = repositoryProvider.getEnvironmentRepository()
 
         if (!EnvironmentEntity.isValidUpperCoordinates(command.limitX, command.limitY)) return Either.Left(
-            EnvironmentOutOfBoundsException()
+            CreateEnvironmentException.EnvironmentOutOfBoundsException()
         )
         val entity = EnvironmentEntity.create(command.limitX, command.limitY)
 
