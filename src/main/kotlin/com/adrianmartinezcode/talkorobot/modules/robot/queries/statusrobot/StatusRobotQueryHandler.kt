@@ -4,18 +4,18 @@ import com.adrianmartinezcode.talkorobot.infraestructure.database.RepositoryProv
 import com.adrianmartinezcode.talkorobot.libs.utils.Either
 
 class StatusRobotQueryHandler(
-    val repositoryProvider: RepositoryProvider
+    private val repositoryProvider: RepositoryProvider
 ) {
 
-    fun handle(query: StatusRobotQuery) : Either<RobotNotFoundException, StatusRobotQueryResponse> {
+    fun handle(query: StatusRobotQuery) : Either<StatusRobotException, StatusRobotQueryResponse> {
         val repository = repositoryProvider.getRobotRepository()
         return repository.getRobot(query.id).fold(
-            { Either.Left(RobotNotFoundException())},
+            { Either.Left(StatusRobotException.RobotNotFoundException())},
             { robot ->
                 Either.Right(StatusRobotQueryResponse(
                     robot.properties.position.x,
                     robot.properties.position.y,
-                    robot.properties.direction.getOrientation()
+                    robot.properties.direction
                 ))
             }
         )

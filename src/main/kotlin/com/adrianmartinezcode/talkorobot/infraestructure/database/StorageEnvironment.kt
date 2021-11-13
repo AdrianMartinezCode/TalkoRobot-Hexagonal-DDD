@@ -9,7 +9,6 @@ class StorageEnvironment : IEnvironmentRepository {
 
     val bd: HashMap<String, EnvironmentEntity> = hashMapOf()
 
-
     override fun getEnvironment(id: ID): Option<EnvironmentEntity> {
         return Option.FromNullable(bd[id.value])
     }
