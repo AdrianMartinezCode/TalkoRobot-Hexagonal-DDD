@@ -1,7 +1,5 @@
 package com.adrianmartinezcode.talkorobot.modules.robot.commands.moverobot
 
-import com.adrianmartinezcode.talkorobot.infraestructure.application.moverobot.IncorrectDirectionApplicationException
-import com.adrianmartinezcode.talkorobot.infraestructure.application.moverobot.MoveRobotApplicationInstructionEnum
 import com.adrianmartinezcode.talkorobot.libs.ddd.commanddomainbus.DomainCommandsBus
 import com.adrianmartinezcode.talkorobot.libs.ddd.domain.valueobjects.ID
 import org.springframework.beans.factory.annotation.Autowired
