@@ -6,9 +6,10 @@ import com.adrianmartinezcode.talkorobot.libs.ddd.domain.valueobjects.ID
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
 
 
-@Controller
+@RestController
 class PositionRobotController(
     private val commandBus: DomainCommandsBus
 ) {
@@ -16,7 +17,7 @@ class PositionRobotController(
     @PostMapping("/position")
     fun position(@RequestBody positionRobotRequest: PositionRobotRequest) : PositionRobotResponse {
 
-        return PositionRobotDirectionEnum.fromChar(positionRobotRequest.orientation).fold(
+        return PositionRobotDirectionEnum.fromString(positionRobotRequest.orientation).fold(
             { throw PositionRobotException.IncorrectOrientationApplicationException() },
             { orientation ->
                 val command = PositionRobotCommand(

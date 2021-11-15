@@ -1,11 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val kotlin_version = "1.3.72"
+
 plugins {
 	id("org.springframework.boot") version "2.4.12"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	kotlin("jvm") version "1.4.32"
 	kotlin("plugin.spring") version "1.4.32"
-	val kotlinVersion = "1.3.72"
+
 }
 
 group = "com.adrianmartinezcode"
@@ -18,6 +20,7 @@ repositories {
 }
 
 dependencies {
+	implementation("org.junit.jupiter:junit-jupiter:5.7.0")
 	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

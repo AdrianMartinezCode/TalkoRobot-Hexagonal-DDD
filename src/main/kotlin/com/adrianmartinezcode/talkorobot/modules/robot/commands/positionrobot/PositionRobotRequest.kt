@@ -6,6 +6,6 @@ data class PositionRobotRequest(
     val idEnvironment: String,
     val x: Int,
     val y: Int,
-    val orientation: Char
+    val orientation: String
 ) {
 }

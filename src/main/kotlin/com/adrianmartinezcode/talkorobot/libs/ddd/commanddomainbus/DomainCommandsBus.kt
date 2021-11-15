@@ -12,7 +12,10 @@ import com.adrianmartinezcode.talkorobot.modules.robot.commands.moverobot.MoveRo
 import com.adrianmartinezcode.talkorobot.modules.robot.commands.positionrobot.PositionRobotCommand
 import com.adrianmartinezcode.talkorobot.modules.robot.commands.positionrobot.PositionRobotService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Bean
+import org.springframework.stereotype.Component
 
+@Component
 final class DomainCommandsBus (
     val domainServices : HashMap<String, CommandService<in Command, Throwable>>
 ) {
@@ -23,27 +26,7 @@ final class DomainCommandsBus (
 
     companion object {
 
-        @Autowired
-        fun getDomainCommandBus(
-            repositoryProvider: RepositoryProvider
-        ) : DomainCommandsBus {
-            return DomainCommandsBus(
-                hashMapOf(
-                    Pair(
-                        MoveRobotCommand::class.java.name,
-                        MoveRobotService(repositoryProvider) as CommandService<in Command, Throwable>
-                    ),
-                    Pair(
-                        PositionRobotCommand::class.java.name,
-                        PositionRobotService(repositoryProvider) as CommandService<in Command, Throwable>
-                    ),
-                    Pair(
-                        CreateEnvironmentCommand::class.java.name,
-                        CreateEnvironmentService(repositoryProvider) as CommandService<in Command, Throwable>
-                    )
-                )
-            )
-        }
+
 
 
     }

@@ -4,6 +4,7 @@ import com.adrianmartinezcode.talkorobot.libs.ddd.domain.baseclasses.AggregateRo
 import com.adrianmartinezcode.talkorobot.libs.ddd.domain.valueobjects.ID
 import com.adrianmartinezcode.talkorobot.modules.robot.domain.valueobjects.Direction
 import com.adrianmartinezcode.talkorobot.modules.robot.domain.valueobjects.Position
+import java.awt.Robot
 
 class RobotEntity(
     id: ID,
@@ -20,15 +21,18 @@ class RobotEntity(
             )
         }
 
-        fun positionCollidesWithOtherRobots(
-            position: Position,
-            robots: List<RobotEntity>
-        ) : Boolean {
-            if (robots.isEmpty()) return false
-            return robots.map { r ->
-                r.robotIsInThisPosition(position)
-            }.reduce { acc, v -> acc || v }
+        fun positionCollidesWithOtherRobots(position: Position, robots: List<RobotEntity>) : Boolean {
+            return robots.fold(false) { acc, v ->
+                acc || v.robotIsInThisPosition(position)
+            }
         }
+    }
+    fun collideWithOtherRobots(robots: List<RobotEntity>) : Boolean {
+        return RobotEntity.positionCollidesWithOtherRobots(
+            properties.position,
+            robots.filter { r -> r != this}
+        )
+
     }
 
     fun getNextMoveRobot() : Position {
@@ -70,6 +74,10 @@ class RobotEntity(
             ),
             environmentID
         )
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return other is RobotEntity && other.id == id
     }
 
 }

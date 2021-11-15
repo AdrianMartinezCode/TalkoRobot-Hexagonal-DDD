@@ -2,7 +2,9 @@ package com.adrianmartinezcode.talkorobot.modules.robot.queries.statusrobot
 
 import com.adrianmartinezcode.talkorobot.infraestructure.database.RepositoryProvider
 import com.adrianmartinezcode.talkorobot.libs.utils.Either
+import org.springframework.stereotype.Component
 
+@Component
 class StatusRobotQueryHandler(
     private val repositoryProvider: RepositoryProvider
 ) {

@@ -4,6 +4,10 @@ import java.util.*
 
 class ID(val value: String) {
 
+    override fun equals(other: Any?): Boolean {
+        return other is ID && other.value == value
+    }
+
     companion object {
         /**
          * Is not a UUID but is ok in this context.

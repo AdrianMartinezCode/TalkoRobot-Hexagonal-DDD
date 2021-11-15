@@ -4,7 +4,6 @@ import arrow.core.*
 import com.adrianmartinezcode.talkorobot.infraestructure.database.RepositoryProvider
 import com.adrianmartinezcode.talkorobot.libs.ddd.commands.CommandService
 import com.adrianmartinezcode.talkorobot.libs.ddd.domain.valueobjects.ID
-import com.adrianmartinezcode.talkorobot.modules.environment.domain.entities.EnvironmentEntity
 import com.adrianmartinezcode.talkorobot.modules.robot.domain.entities.RobotEntity
 
 class MoveRobotService(
@@ -13,13 +12,12 @@ class MoveRobotService(
 
     override fun handle(command: MoveRobotCommand): Either<MoveRobotException, ID> {
 
-
         val robotRepository = repositoryProvider.getRobotRepository()
         val environmentRepository = repositoryProvider.getEnvironmentRepository()
 
         return robotRepository.getRobot(command.robotId).fold(
             { Either.Left(MoveRobotException.RobotNotFoundException()) },
-            { robot -> environmentRepository.getEnvironment(robot.id).fold(
+            { robot -> environmentRepository.getEnvironment(robot.environmentID).fold(
                 { Either.Left(MoveRobotException.EnvironmentNotDefinedException()) },
                 { env -> Either.Right(Pair(robot, env)) }
             ) }
@@ -32,10 +30,9 @@ class MoveRobotService(
                         MoveRobotCommand.MoveRobotInstructionEnum.R -> Either.Right(robot.rotateRobotRight())
                         MoveRobotCommand.MoveRobotInstructionEnum.L -> Either.Right(robot.rotateRobotLeft())
                         MoveRobotCommand.MoveRobotInstructionEnum.M -> {
-                            val newPosition = robot.getNextMoveRobot()
-                            if (RobotEntity.positionCollidesWithOtherRobots(newPosition, allRobots))
+                            if (robot.collideWithOtherRobots(allRobots))
                                 Either.Left(MoveRobotException.RobotsCollideException())
-                            else if (!env.isPositionValid(newPosition))
+                            else if (!env.isPositionValid(robot.properties.position))
                                 Either.Left(MoveRobotException.RobotOutOfBoundsException())
                             else
                                 Either.Right(robot.moveRobot())

@@ -3,7 +3,6 @@ package com.adrianmartinezcode.talkorobot.modules.robot.commands.positionrobot
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
-import com.adrianmartinezcode.talkorobot.infraestructure.application.positionaterobot.IncorrectOrientationApplicationException
 
 enum class PositionRobotDirectionEnum {
     N, S, E, W;
@@ -18,6 +17,10 @@ enum class PositionRobotDirectionEnum {
                 else -> PositionRobotDirectionEnum.E
             }
             return Some(orientation)
+        }
+        fun fromString(str: String) : Option<PositionRobotDirectionEnum> {
+            if (str.isEmpty()) return None
+            return fromChar(str[0])
         }
     }
 }
