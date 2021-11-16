@@ -7,7 +7,8 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	kotlin("jvm") version "1.4.32"
 	kotlin("plugin.spring") version "1.4.32"
-
+	application
+	java
 }
 
 group = "com.adrianmartinezcode"
@@ -20,27 +21,47 @@ repositories {
 }
 
 dependencies {
-	implementation("org.junit.jupiter:junit-jupiter:5.7.0")
+	testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
+	testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+
 	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	runtimeOnly("com.h2database:h2")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+//	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("io.arrow-kt:arrow-core:$arrowVersion")
 	implementation("io.arrow-kt:arrow-fx:$arrowVersion")
 	implementation("io.arrow-kt:arrow-optics:$arrowVersion")
 	implementation("io.arrow-kt:arrow-syntax:$arrowVersion")
+//	testImplementation(kotlin("test"))
 }
 
-tasks.withType<KotlinCompile> {
-	kotlinOptions {
-		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "11"
-	}
+tasks.withType<KotlinCompile>() {
+	kotlinOptions.jvmTarget = "1.8"
 }
-
-tasks.withType<Test> {
+tasks.test {
+	useJUnit()
 	useJUnitPlatform()
 }
+//tasks.withType<Test> {
+//	useJUnitPlatform()
+//}
+
+tasks.jar {
+	manifest {
+		attributes["Main-Class"] = "com.adrianmartinezcode.talkorobot.TalkoRobotApplicationKt"
+	}
+	configurations["compileClasspath"].forEach { file: File ->
+		from(zipTree(file.absoluteFile))
+	}
+
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+application {
+	mainClassName = "com.adrianmartinezcode.talkorobot.TalkoRobotApplicationKt"
+	mainClass.set("com.adrianmartinezcode.talkorobot.TalkoRobotApplicationKt")
+}
+

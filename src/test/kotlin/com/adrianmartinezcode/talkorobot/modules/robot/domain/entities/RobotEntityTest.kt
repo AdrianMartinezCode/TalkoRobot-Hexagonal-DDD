@@ -6,9 +6,11 @@ import com.adrianmartinezcode.talkorobot.modules.robot.commands.positionrobot.Po
 import com.adrianmartinezcode.talkorobot.modules.robot.domain.valueobjects.Direction
 import com.adrianmartinezcode.talkorobot.modules.robot.domain.valueobjects.Position
 import org.junit.Before
+//import org.junit.Before
 import org.junit.Test
-import kotlin.test.assertEquals
+import org.junit.jupiter.api.Assertions.assertEquals
 
+//import kotlin.test.assertEquals
 
 internal class RobotEntityTest {
 
